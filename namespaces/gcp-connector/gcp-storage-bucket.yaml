@@ -1,0 +1,14 @@
+  apiVersion: storage.cnrm.cloud.google.com/v1beta1
+  kind: StorageBucket
+  metadata:
+    annotations:
+      cnrm.cloud.google.com/project-id : smart-grin-309120
+      #configmanagement.gke.io/namespace-selector: config-supported
+    name: smart-grin-config-bucket
+  spec:
+    lifecycleRule:
+      - action:
+          type: Delete
+        condition:
+          age: 7
+    uniformBucketLevelAccess: true
