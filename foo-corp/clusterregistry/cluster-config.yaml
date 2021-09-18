@@ -4,5 +4,4 @@ metadata:
   name: gke-cluster
   labels:
     environment: prod
-    specialrole: connectorhost
     cloud: gcp
