@@ -4,3 +4,4 @@ metadata:
   name: aws-connector
   annotations:
     services.k8s.aws/owner-account-id: "971561016216"
+    configmanagement.gke.io/cluster-selector: selector-cloud-aws
