@@ -1,0 +1,49 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: awsstorageaclconstraintv1
+spec:
+  crd:
+    spec:
+      names:
+        kind: AWSStorageAclConstraintV1
+      validation:
+        openAPIV3Schema:
+          properties:
+            acls:
+              type: array
+              items:
+                type: string
+            exemptions:
+              type: array
+              items:
+                type: string
+  targets:
+  - target: admission.k8s.gatekeeper.sh
+    rego: |
+      package awsstorageaclconstraintv1
+
+      allowedAcl(reviewAcl) {
+          acls := input.parameters.acls
+          satisfied := [ good | acl = acls[_]
+                                good = lower(acl) == lower(reviewAcl)]
+          any(satisfied)
+      }
+
+      exempt(reviewName) {
+          input.parameters.exemptions[_] == reviewName
+      }
+
+      violation[{"msg": msg}] {
+          bucketName := input.review.object.metadata.name
+          bucketAcl := input.review.object.spec.acl
+          not allowedAcl(bucketAcl)
+          not exempt(bucketName)
+          msg := sprintf("Cloud Storage bucket <%v> uses a disallowed ACL <%v>, allowed ACLss are %v", [bucketName, bucketAcl, input.parameters.acls])
+      }
+
+      violation[{"msg": msg}] {
+          not input.parameters.acls
+          bucketName := input.review.object.metadata.name
+          msg := sprintf("No permitted acls provided in constraint for Cloud Storage bucket <%v>", [bucketName])
+      }

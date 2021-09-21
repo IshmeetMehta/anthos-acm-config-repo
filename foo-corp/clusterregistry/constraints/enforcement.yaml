@@ -1,0 +1,19 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: AWSStorageAclConstraintV1
+metadata:
+  name: private-acl-only 
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+    - apiGroups:
+      - "*"
+      kinds:
+      - Bucket
+    namespaces:
+    - qa-bucket-def
+  parameters:
+    acls:
+    - private 
+    - authenticated-read
+    exemptions:
