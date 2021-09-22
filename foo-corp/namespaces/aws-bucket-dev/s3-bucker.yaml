@@ -1,7 +1,7 @@
 apiVersion: s3.services.k8s.aws/v1alpha1
 kind: Bucket
 metadata:
-  name: bucket-dev
+  name: aws-bucket-dev
   namespace: 
 spec:
-  name: bucket-dev
+  name: aws-bucket-dev
