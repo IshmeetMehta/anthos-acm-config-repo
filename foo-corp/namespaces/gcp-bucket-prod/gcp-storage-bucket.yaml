@@ -6,9 +6,9 @@
       #configmanagement.gke.io/namespace-selector: config-supported
     name: smart-grin-config-bucket
   spec:
-    lifecycleRule:
-      - action:
-          type: Delete
-        condition:
-          age: 7
+    # lifecycleRule:
+    #   - action:
+    #       type: Delete
+    #     condition:
+    #       age: 7
     uniformBucketLevelAccess: true
