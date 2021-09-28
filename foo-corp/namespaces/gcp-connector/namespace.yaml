@@ -4,5 +4,5 @@ kind: Namespace
 metadata:
   name: gcp-connector
   annotations:
-    configmanagement.gke.io/cluster-selector: selector-specialrole-connectorhost
+    configmanagement.gke.io/cluster-selector: selector-cloud-gcp
     cnrm.cloud.google.com/project-id: smart-grin-309120
