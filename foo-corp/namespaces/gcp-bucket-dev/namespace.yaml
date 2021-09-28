@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: gcp-bucket-prod
+  name: gcp-bucket-dev
   annotations:
     configmanagement.gke.io/cluster-selector: selector-cloud-gcp
     cnrm.cloud.google.com/project-id: smart-grin-309120
